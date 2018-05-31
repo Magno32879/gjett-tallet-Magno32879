@@ -17,7 +17,11 @@
             <label for="inpGjetting">Gjett et tall</label>
             <input id="inpGjetting" type="number"  min="0" max="10" onchange="gjett()">
             <p id="txtBeskjed"></p>
+            <p id="Svar"></p>
+
+            <button class="button" onclick="NyttTall">Bytt det riktige tallet</button>
         </article>
+
     </main>
 <footer>
     Gjett et tall er lagd av <i>Magnar Dæhli</i>
@@ -27,8 +31,9 @@
         // Få tak på HTML-objekter
         var inpGjetting = document.getElementById("inpGjetting");
         var txtBeskjed = document.getElementById("txtBeskjed");
+        var Svar = document.getElementById("Svar");
 
-        var korrektTall = 3;
+        var korrektTall = Math.floor((Math.random() * 10) + 1);
 
         // Lytter funksjon som kalles når noen har gjort en gjetning.
         function gjett(){
@@ -37,7 +42,29 @@
             var gjettetTall = Number(inpGjetting.value);
 
             /* Fortsett her for å finne ut om tallet er korrekt! */
+            if (gjettetTall === korrektTall){
+                txtBeskjed.innerHTML = "Bra jobba, du gjettet riktig!!";
+                Svar.innerHTML = "";
+            }
+            else {
+                txtBeskjed.innerHTML = "Desverre var dette feil tall, prøv igjen"
+            }
+            if (gjettetTall < korrektTall){
+                Svar.innerHTML = "Tallet er for lite"
+            }
+            if (gjettetTall > korrektTall){
+                Svar.innerHTML = "Tallet er for stort"
+            }
         }
+
+        function NyttTall() {
+
+            var NyttTall2 = Number(korrektTall.value);
+
+            if (NyttTall2)
+
+        }
+
 
     </script>
 </body>
