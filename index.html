@@ -7,31 +7,54 @@
         footer {
             font-size: small;
         }
+        #GameOver{
+            margin-left: 500px;
+            margin-top: 300px;
+        }
+        #Riktig{
+            margin-left: 500px;
+        }
+        #inpGjetting{
+            width: 200px;
+        }
     </style>
     <title>Gjett et tall</title>
 </head>
 <body>
-    <header><h1>Gjett et tall</h1></header>
-    <main>
-        <article>
+    <header id="Slett2"><h1>Gjett et tall</h1></header>
+    <main id="Slett">
             <label for="inpGjetting">Gjett et tall</label>
             <input id="inpGjetting" type="number"  min="0" max="10" onchange="gjett()">
             <p id="txtBeskjed"></p>
             <p id="Svar"></p>
-
-            <button class="button" onclick="NyttTall">Bytt det riktige tallet</button>
-        </article>
+            <p id="Ganger"></p>
+            <p id="brukt"></p>
+            <p id="Nr2"></p>
+        <button id="Reset" class = "button" onclick="NyttTall()">Restart</button>
 
     </main>
-<footer>
-    Gjett et tall er lagd av <i>Magnar Dæhli</i>
+<footer id="Slett3">
+    Gjett et tall er laget av <i>Magnar Dæhli</i>
 </footer>
+    <h1 id="GameOver"></h1>
+    <h1 id="Riktig"></h1>
     <script>
 
         // Få tak på HTML-objekter
         var inpGjetting = document.getElementById("inpGjetting");
         var txtBeskjed = document.getElementById("txtBeskjed");
         var Svar = document.getElementById("Svar");
+        var Ganger = document.getElementById("Ganger");
+        var GameOver = document.getElementById("GameOver");
+        var Main = document.getElementById("Slett");
+        var Header = document.getElementById("Slett2");
+        var Footer = document.getElementById("Slett3");
+        var Riktig = document.getElementById("Riktig");
+        var Antall = 0;
+        var Brukt = 6;
+        var Reset = document.getElementById("Reset");
+        var Nr2 = document.getElementById("Nr2");
+        var brukt = document.getElementById("brukt");
 
         var korrektTall = Math.floor((Math.random() * 10) + 1);
 
@@ -40,32 +63,59 @@
 
             // Henter ut tallet brukeren har gjettet og gjør om det til et tall
             var gjettetTall = Number(inpGjetting.value);
+            Antall++;
+            Brukt--;
 
             /* Fortsett her for å finne ut om tallet er korrekt! */
             if (gjettetTall === korrektTall){
-                txtBeskjed.innerHTML = "Bra jobba, du gjettet riktig!!";
+                txtBeskjed.innerHTML = "Bra jobba, du gjettet riktig!! Tallet var:  " + korrektTall;
                 Svar.innerHTML = "";
+                Ganger.innerHTML = "";
+                brukt.innerHTML = "";
+                Nr2.innerHTML = "Du brukte " + Antall + " forsøk";
+                document.body.style.backgroundColor = "green";
             }
             else {
-                txtBeskjed.innerHTML = "Desverre var dette feil tall, prøv igjen"
+                txtBeskjed.innerHTML = "Desverre var dette feil tall, prøv igjen";
+                document.body.style.backgroundColor = "red";
+                brukt.innerHTML = "Du har " + Brukt + " ganger igjen"
             }
+
             if (gjettetTall < korrektTall){
                 Svar.innerHTML = "Tallet er for lite"
             }
             if (gjettetTall > korrektTall){
                 Svar.innerHTML = "Tallet er for stort"
             }
+
+                if (Antall === 1){
+                    Ganger.innerHTML = "Du har gjettet 1 forsøk";
+                } else {
+                    Ganger.innerHTML = "Du har gjettet " + Antall + " forsøk";
+                }
+
+
+            if (Antall > 5){
+                Main.innerHTML = "";
+                Header.innerHTML = "";
+                Footer.innerHTML = "";
+                document.body.style.backgroundColor = "Red";
+
+
+                Riktig.innerHTML = "Det riktige tallet var " + korrektTall;
+                GameOver.innerHTML = "GAME OVER";
+                }
         }
 
         function NyttTall() {
-
-            var NyttTall2 = Number(korrektTall.value);
-
-            if (NyttTall2)
-
+            Antall= 0;
+            Ganger.innerHTML = "";
+            korrektTall = Math.floor((Math.random() * 10) + 1);
+            document.body.style.backgroundColor = "";
+            txtBeskjed.innerHTML = "";
+            inpGjetting.value = "";
+            Svar.innerHTML = "";
         }
-
-
     </script>
 </body>
 </html>
